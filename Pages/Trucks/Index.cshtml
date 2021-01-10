@@ -1,0 +1,66 @@
+﻿@page "/"
+@model Donea_Paul_App.Pages.Trucks.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Truck[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Truck[0].Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Truck[0].Cabin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Truck[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Truck[0].MakingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Truck[0].Maker.MakerName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Truck) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cabin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MakingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maker.MakerName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,78 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Donea_Paul_App.Data;
+using Donea_Paul_App.Models;
+
+namespace Donea_Paul_App.Pages.Trucks
+{
+    public class EditModel : PageModel
+    {
+        private readonly Donea_Paul_App.Data.Donea_Paul_AppContext _context;
+
+        public EditModel(Donea_Paul_App.Data.Donea_Paul_AppContext context)
+        {
+            _context = context;
+        }
+
+        [BindProperty]
+        public Truck Truck { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Truck = await _context.Truck.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (Truck == null)
+            {
+                return NotFound();
+            }
+            ViewData["MakerID"] = new SelectList(_context.Set<Maker>(), "ID", "MakerName");
+            return Page();
+        }
+
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.Attach(Truck).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TruckExists(Truck.ID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("./Index");
+        }
+
+        private bool TruckExists(int id)
+        {
+            return _context.Truck.Any(e => e.ID == id);
+        }
+    }
+}

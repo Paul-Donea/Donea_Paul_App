@@ -1,0 +1,58 @@
+﻿@page
+@model Donea_Paul_App.Pages.Trucks.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Truck</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Truck.Name" class="control-label"></label>
+                <input asp-for="Truck.Name" class="form-control" />
+                <span asp-validation-for="Truck.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Truck.Brand" class="control-label"></label>
+                <input asp-for="Truck.Brand" class="form-control" />
+                <span asp-validation-for="Truck.Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Truck.Cabin" class="control-label"></label>
+                <input asp-for="Truck.Cabin" class="form-control" />
+                <span asp-validation-for="Truck.Cabin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Truck.Price" class="control-label"></label>
+                <input asp-for="Truck.Price" class="form-control" />
+                <span asp-validation-for="Truck.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Truck.MakingDate" class="control-label"></label>
+                <input asp-for="Truck.MakingDate" class="form-control" />
+                <span asp-validation-for="Truck.MakingDate" class="textdanger"></span>
+            </div>
+            <label asp-for="Truck.MakerID" class="control-label">Maker Name</label>
+            <select asp-for="Truck.MakerID" class="form-control" asp-items="ViewBag.MakerID">
+            </select>
+            <span asp-validation-for="Truck.MakerID" class="text-danger"></span>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
